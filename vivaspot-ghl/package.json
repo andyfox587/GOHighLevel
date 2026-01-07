@@ -1,0 +1,31 @@
+{
+  "name": "vivaspot-ghl",
+  "version": "1.0.0",
+  "description": "VivaSpot WiFi to GoHighLevel CRM Integration",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "keywords": [
+    "vivaspot",
+    "gohighlevel",
+    "wifi",
+    "marketing",
+    "crm"
+  ],
+  "author": "VivaSpot / iValu8 Inc.",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
