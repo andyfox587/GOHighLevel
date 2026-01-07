@@ -13,21 +13,23 @@ const router = Router();
 /**
  * GET /oauth/authorize
  * 
- * Initiates OAuth flow - redirects to GHL authorization page.
- * This is where GHL sends users when they click "Install" in the marketplace.
+ * Initiates OAuth flow - redirects to GHL's Installation URL.
+ * This is where users go when they click "Connect GoHighLevel Account".
  */
 router.get('/authorize', (req, res) => {
   try {
-    // Generate a random state for CSRF protection
-    const state = Math.random().toString(36).substring(7);
+    // Use GHL's pre-built Installation URL (includes version_id)
+    const installUrl = process.env.GHL_INSTALL_URL;
     
-    // Store state in session/cookie for verification (simplified for now)
-    // In production, use a proper session store
+    if (!installUrl) {
+      console.error('GHL_INSTALL_URL environment variable not set');
+      return res.status(500).json({ 
+        error: 'OAuth not configured. Missing GHL_INSTALL_URL.' 
+      });
+    }
     
-    const authUrl = ghl.getAuthorizationUrl(state);
-    console.log('Redirecting to GHL OAuth:', authUrl);
-    
-    res.redirect(authUrl);
+    console.log('Redirecting to GHL Install URL');
+    res.redirect(installUrl);
   } catch (error) {
     console.error('OAuth authorize error:', error);
     res.status(500).json({ error: 'Failed to initiate OAuth flow' });
